@@ -31,6 +31,30 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.6; }
 
+/* NAV */
+.site-nav {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 40px;
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-logo:hover { color: var(--accent); }
+.nav-logo span { color: var(--accent); }
+.nav-sep { color: var(--border); font-size: 1.1rem; }
+.nav-current {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+}
+
 /* HERO */
 .hero {
   min-height: 90vh;
@@ -451,9 +475,16 @@ select:focus { outline: none; border-color: var(--accent); }
 
 <div id="mainContent" style="display:none">
 
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="https://moviliza.github.io" class="nav-logo">Moviliza<span>.</span></a>
+  <span class="nav-sep">/</span>
+  <span class="nav-current">Muertes en situación de calle</span>
+</nav>
+
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-kicker">Registro de prensa · Chile</div>
+  <div class="hero-kicker">Registro de prensa · Chile · Corporación Moviliza</div>
   <h1>Morir en la calle</h1>
   <p class="lead">Un registro basado en fuentes periodísticas de las personas en situación de calle que han perdido la vida en Chile. Las cifras reales pueden ser mayores: no todos los casos llegan a la prensa.</p>
   <div class="hero-stats">
@@ -675,7 +706,7 @@ function updateCharts(){
 }
 
 function mkBar(id,l,d,c,ref){if(window[ref])window[ref].destroy();window[ref]=new Chart(document.getElementById(id),{type:'bar',data:{labels:l,datasets:[{data:d,backgroundColor:c+'99',borderColor:c,borderWidth:1,borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#999',font:{size:11,family:'Source Sans 3'}},grid:{color:'#eee'}},y:{ticks:{color:'#999',font:{size:11,family:'Source Sans 3'}},grid:{color:'#eee'}}}}})}
-function mkHBar(id,l,d,c,ref){if(window[ref])window[ref].destroy();window[ref]=new Chart(document.getElementById(id),{type:'bar',data:{labels:l,datasets:[{data:d,backgroundColor:c+'99',borderColor:c,borderWidth:1,borderRadius:3}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#999'},grid:{color:'#eee'}},y:{ticks:{color:'#666',font:{size:11,family:'Source Sans 3'}},grid:{color:'#eee'}}}}})}
+function mkHBar(id,l,d,c,ref){if(window[ref])window[ref].destroy();window[ref]=new Chart(document.getElementById(id),{type:'bar',data:{labels:l,datasets:[{data:d,backgroundColor:c+'99',borderColor:c,borderWidth:1,borderRadius:3}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{left:10}},plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#999'},grid:{color:'#eee'}},y:{afterFit(axis){axis.width=130},ticks:{color:'#666',font:{size:11,family:'Source Sans 3'}},grid:{color:'#eee'}}}}})}
 function mkDoughnut(id,l,d,cs,ref){if(window[ref])window[ref].destroy();window[ref]=new Chart(document.getElementById(id),{type:'doughnut',data:{labels:l,datasets:[{data:d,backgroundColor:cs,borderColor:'#fff',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'right',labels:{color:'#666',font:{size:11,family:'Source Sans 3'},padding:8,usePointStyle:true,pointStyle:'circle'}}}}})}
 
 // Map
