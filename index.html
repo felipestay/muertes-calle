@@ -596,10 +596,11 @@ const cauTag={'Hipotermia':'tag-hipotermia','Homicidio':'tag-homicidio','Acciden
 const meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 const mesesAbr=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 
+function toNum(s){if(!s)return NaN;return parseFloat(String(s).replace(',','.'))}
 function parseRow(r){
   const g=ks=>{for(const k of ks){if(r[k]!==undefined&&r[k]!=='')return r[k].trim()}return null};
   if(!g(['Id','id','ID']))return null;
-  const lat=parseFloat(g(['lat','Lat'])),lon=parseFloat(g(['lon','Lon','lng'])),edad=parseInt(g(['edad','Edad']));
+  const lat=toNum(g(['lat','Lat'])),lon=toNum(g(['lon','Lon','lng'])),edad=parseInt(g(['edad','Edad']));
   return{
     id:g(['Id','id','ID']),nombre:g(['nombre_persona','Nombre','nombre'])||'nn',
     fecha:g(['fecha','Fecha']),mes:g(['mes','Mes']),anho:g(['anho','Anho','año','Año']),
@@ -731,7 +732,6 @@ function updateMap(){
     const m=L.circleMarker([d.lat,d.lon],{radius:5,fillColor:c,color:'#fff',weight:1,opacity:.9,fillOpacity:.85});
     m.bindPopup(`<div style="line-height:1.5">📅 ${d.fecha||'—'}<br>📍 ${d.comuna}, ${d.region}<br>⚠️ ${d.causa}${d.edad?' · '+d.edad+' años':''}${d.url?'<br><a href="'+d.url+'" target="_blank" style="color:#c41e3a">Leer noticia →</a>':''}</div>`);
     markerGroup.addLayer(m)}});
-  if(markerGroup.getLayers().length>0){map.fitBounds(markerGroup.getBounds().pad(0.1))}
 }
 
 // Sociology
