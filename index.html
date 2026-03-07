@@ -711,18 +711,27 @@ function mkDoughnut(id,l,d,cs,ref){if(window[ref])window[ref].destroy();window[r
 
 // Map
 function initMap(){
-  map=L.map('map',{scrollWheelZoom:true}).setView([-33.45,-70.65],5);
+  map=L.map('map',{scrollWheelZoom:true,zoomControl:true}).setView([-35.5,-71.5],5);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; OSM &copy; CARTO',maxZoom:18}).addTo(map);
   markerGroup=L.markerClusterGroup({iconCreateFunction(cl){const n=cl.getChildCount();let s=28;if(n>50)s=44;else if(n>10)s=36;return L.divIcon({html:'<div style="background:#c41e3a;color:#fff;border-radius:50%;width:'+s+'px;height:'+s+'px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;font-family:Source Sans 3;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2)">'+n+'</div>',className:'',iconSize:[s,s]})}});
   map.addLayer(markerGroup);
+  // Fix tiles not rendering properly
+  setTimeout(function(){map.invalidateSize()},200);
+  // Also fix on scroll into view
+  const obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){map.invalidateSize()}})},{threshold:0.1});
+  obs.observe(document.getElementById('map'));
+}
+function isValidCoord(lat,lon){
+  return lat!==null&&lon!==null&&!isNaN(lat)&&!isNaN(lon)&&lat>=-56&&lat<=-17&&lon>=-76&&lon<=-66;
 }
 function updateMap(){
   markerGroup.clearLayers();
-  filtered.forEach(d=>{if(d.lat&&d.lon){
+  filtered.forEach(d=>{if(isValidCoord(d.lat,d.lon)){
     const c=cauColors[d.causa]||'#999';
     const m=L.circleMarker([d.lat,d.lon],{radius:5,fillColor:c,color:'#fff',weight:1,opacity:.9,fillOpacity:.85});
     m.bindPopup(`<div style="line-height:1.5">📅 ${d.fecha||'—'}<br>📍 ${d.comuna}, ${d.region}<br>⚠️ ${d.causa}${d.edad?' · '+d.edad+' años':''}${d.url?'<br><a href="'+d.url+'" target="_blank" style="color:#c41e3a">Leer noticia →</a>':''}</div>`);
     markerGroup.addLayer(m)}});
+  if(markerGroup.getLayers().length>0){map.fitBounds(markerGroup.getBounds().pad(0.1))}
 }
 
 // Sociology
