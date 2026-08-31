@@ -6,9 +6,11 @@ Dashboard interactivo que documenta y visibiliza las muertes de personas en situ
 
 Los datos se cargan automáticamente desde un Google Sheet publicado como CSV. Como respaldo, el archivo `index.html` incluye los datos embebidos.
 
-**Google Sheet CSV URL:**
+Esos datos cargan automáticamente en la siguiente página:
+
+**Github page:**
 ```
-https://docs.google.com/spreadsheets/d/e/2PACX-1vRrttIj_NHTZVxNVk-FnDC0W8-3CV_s1UIaTFeIKNq_NDAjlnUaEyJWw3JA882bXAVerTZUOiowqHwV/pub?gid=1757210688&single=true&output=csv
+[https://moviliza.github.io/muertes-calle/]
 ```
 
 ## Cómo funciona
