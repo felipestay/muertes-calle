@@ -10,7 +10,7 @@ Esos datos cargan automáticamente en la siguiente página:
 
 **Github page:**
 ```
-[https://moviliza.github.io/muertes-calle/]
+https://moviliza.github.io/muertes-calle/
 ```
 
 ## Cómo funciona
